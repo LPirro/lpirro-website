@@ -3,6 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- Google Analytics (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3M2TTQP90J"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-3M2TTQP90J");
+  </script>
+
   <title>Leonardo Pirro - Connect with me</title>
   <meta name="description" content="Tech, fitness e lifestyle. Qui puoi trovare tutti i miei link social e la mia email.">
   <meta name="color-scheme" content="dark">
@@ -501,6 +511,17 @@
     </footer>
   </div>
 
-  <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+    document.querySelectorAll(".card").forEach(function (card) {
+      card.addEventListener("click", function () {
+        if (typeof gtag === "function") {
+          gtag("event", "channel_click", {
+            channel: card.querySelector(".platform").textContent.trim()
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
