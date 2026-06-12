@@ -87,16 +87,64 @@
       min-height: 100dvh;
     }
 
-    /* ambient studio glow — echoes the portrait's room lighting */
-    body::before {
-      content: "";
+    /* ambient studio glow — echoes the portrait's room lighting, drifting slowly */
+    .glows {
       position: fixed;
       inset: 0;
       z-index: -2;
-      background:
-        radial-gradient(900px 620px at 12% 6%, rgba(124, 58, 237, 0.17), transparent 62%),
-        radial-gradient(820px 600px at 92% 28%, rgba(37, 99, 235, 0.11), transparent 60%),
-        radial-gradient(950px 720px at 68% 100%, rgba(217, 119, 6, 0.10), transparent 62%);
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .glow {
+      position: absolute;
+      border-radius: 50%;
+      will-change: transform;
+    }
+
+    .glow-violet {
+      width: 64vmax;
+      height: 46vmax;
+      left: -16vmax;
+      top: -14vmax;
+      background: radial-gradient(closest-side, rgba(124, 58, 237, 0.17), transparent 72%);
+      animation: drift-a 28s ease-in-out infinite;
+    }
+
+    .glow-blue {
+      width: 58vmax;
+      height: 44vmax;
+      right: -22vmax;
+      top: 4vmax;
+      background: radial-gradient(closest-side, rgba(37, 99, 235, 0.11), transparent 72%);
+      animation: drift-b 38s ease-in-out infinite;
+    }
+
+    .glow-amber {
+      width: 68vmax;
+      height: 52vmax;
+      left: 28vmax;
+      bottom: -30vmax;
+      background: radial-gradient(closest-side, rgba(217, 119, 6, 0.10), transparent 72%);
+      animation: drift-c 46s ease-in-out infinite;
+    }
+
+    @keyframes drift-a {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
+      33%      { transform: translate3d(5vmax, 3vmax, 0) scale(1.1); opacity: 0.85; }
+      66%      { transform: translate3d(-3vmax, 6vmax, 0) scale(0.95); opacity: 1; }
+    }
+
+    @keyframes drift-b {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.9; }
+      40%      { transform: translate3d(-6vmax, 5vmax, 0) scale(1.12); opacity: 1; }
+      70%      { transform: translate3d(2vmax, -4vmax, 0) scale(0.97); opacity: 0.8; }
+    }
+
+    @keyframes drift-c {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.95; }
+      45%      { transform: translate3d(-7vmax, -4vmax, 0) scale(1.08); opacity: 1; }
+      75%      { transform: translate3d(4vmax, 2vmax, 0) scale(1.02); opacity: 0.85; }
     }
 
     /* film grain */
@@ -126,8 +174,67 @@
     /* ---------- identity ---------- */
 
     .avatar {
+      position: relative;
       width: clamp(104px, 12vw, 136px);
       margin-bottom: 1.75rem;
+    }
+
+    /* multicolor aura that pulses behind the portrait, like speech */
+    .avatar::before {
+      content: "";
+      position: absolute;
+      inset: -42%;
+      z-index: -1;
+      border-radius: 50%;
+      background:
+        radial-gradient(closest-side at 30% 35%, rgba(139, 92, 246, 0.60), transparent 70%),
+        radial-gradient(closest-side at 72% 62%, rgba(59, 130, 246, 0.46), transparent 70%),
+        radial-gradient(closest-side at 58% 22%, rgba(245, 158, 11, 0.36), transparent 72%),
+        radial-gradient(closest-side at 38% 75%, rgba(236, 72, 153, 0.32), transparent 72%);
+      filter: blur(16px);
+      animation: talk 7.5s ease-in-out infinite;
+      will-change: transform, opacity;
+    }
+
+    /* irregular cadence — syllables, emphasis, a pause — not a metronome */
+    @keyframes talk {
+      0%   { transform: scale(1);    opacity: 0.74; }
+      11%  { transform: scale(1.08); opacity: 0.9; }
+      21%  { transform: scale(1);    opacity: 0.77; }
+      33%  { transform: scale(1.13); opacity: 0.97; }
+      44%  { transform: scale(1.04); opacity: 0.82; }
+      57%  { transform: scale(1.17); opacity: 1; }
+      71%  { transform: scale(1.01); opacity: 0.76; }
+      83%  { transform: scale(1.08); opacity: 0.9; }
+      100% { transform: scale(1);    opacity: 0.74; }
+    }
+
+    /* soft wave radiating outward, like sound */
+    .avatar::after {
+      content: "";
+      position: absolute;
+      inset: -34%;
+      z-index: -1;
+      border-radius: 50%;
+      background: radial-gradient(closest-side,
+        transparent 55%,
+        rgba(139, 92, 246, 0.32) 72%,
+        rgba(59, 130, 246, 0.20) 83%,
+        transparent 97%);
+      filter: blur(10px);
+      opacity: 0;
+      animation: ripple 5.6s ease-out infinite;
+      will-change: transform, opacity;
+    }
+
+    @keyframes ripple {
+      0%   { transform: scale(0.92); opacity: 0; }
+      10%  { opacity: 0.58; }
+      42%  { transform: scale(1.2); opacity: 0; }
+      48%  { transform: scale(0.94); opacity: 0; }
+      57%  { opacity: 0.45; }
+      88%  { transform: scale(1.24); opacity: 0; }
+      100% { transform: scale(0.92); opacity: 0; }
     }
 
     @property --ang {
@@ -371,7 +478,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .a, .avatar-ring { animation: none; }
+      .a, .avatar-ring, .glow, .avatar::before, .avatar::after { animation: none; }
       .card, .arrow, .tile { transition: none; }
     }
 
@@ -408,6 +515,11 @@
   </style>
 </head>
 <body>
+  <div class="glows" aria-hidden="true">
+    <span class="glow glow-violet"></span>
+    <span class="glow glow-blue"></span>
+    <span class="glow glow-amber"></span>
+  </div>
   <div class="page">
     <main>
       <header class="identity">
@@ -496,7 +608,7 @@
     </main>
 
     <footer class="a" style="--i: 10">
-      <span>&copy; <span id="y">2026</span> Leonardo Pirro</span>
+      <span>&copy; <span id="y">2026</span> LPirro</span>
       <span class="footer-mark" aria-hidden="true">
         <svg viewBox="0 0 1084 984" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <path d="M571.72 0L418.34 99.63H521.45L571.72 0Z"/>
