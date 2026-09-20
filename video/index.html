@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- Google Analytics (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3M2TTQP90J"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-3M2TTQP90J");
+  </script>
+
+  <title>Dai miei video - Leonardo Pirro</title>
+  <meta name="description" content="Tutti i prodotti di cui parlo nei miei video, con il link per acquistarli. Cerca per nome, brand o argomento.">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0a0a0e">
+  <link rel="canonical" href="https://lpirro.com/video/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lpirro.com/video/">
+  <meta property="og:title" content="Dai miei video - Leonardo Pirro">
+  <meta property="og:description" content="Tutti i prodotti di cui parlo nei miei video, con il link per acquistarli.">
+  <meta property="og:image" content="https://lpirro.com/assets/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <div class="glows" aria-hidden="true">
+    <span class="glow glow-violet"></span>
+    <span class="glow glow-blue"></span>
+    <span class="glow glow-amber"></span>
+  </div>
+  <div class="page library">
+    <main>
+      <a class="back" href="/">
+        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M12 7H2m4-4L2 7l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Leonardo Pirro
+      </a>
+
+      <h1>Dai miei video</h1>
+      <p class="bio">Tutti i prodotti di cui parlo nei video. Tocca una card per aprire il link.</p>
+
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.8-3.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="q" type="search" placeholder="Cerca prodotto o brand" aria-label="Cerca tra i video" autocomplete="off" enterkeyhint="search">
+      </label>
+
+      <section class="picks" aria-label="Prodotti dai video">
+        <p class="count" id="count" aria-live="polite"></p>
+        <ul id="picks-list"></ul>
+        <p class="empty" id="empty" hidden></p>
+        <p class="disclosure">Link affiliati (adv): se acquisti da qui ricevo una commissione, per te il prezzo non cambia.</p>
+      </section>
+    </main>
+
+    <footer>
+      <span>&copy; <span id="y">2026</span> LPirro</span>
+      <span class="footer-mark" aria-hidden="true">
+        <svg viewBox="0 0 1084 984" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M571.72 0L418.34 99.63H521.45L571.72 0Z"/>
+          <path d="M471.71 0L318.33 99.63H421.44L471.71 0Z"/>
+          <path d="M821.82 355.11H757.39L699.72 469H821.82C903.44 469 969.82 535.41 969.82 617C969.82 698.59 903.41 765 821.82 765H432.7L416.92 796.3C384.27 861.12 338.28 952.09 322.16 984H449.76C465.56 952.74 485.02 914.22 502.81 878.95H821.81C966.23 878.95 1083.71 761.47 1083.71 617.05C1083.71 472.63 966.24 355.11 821.82 355.11Z"/>
+          <path d="M857.76 618.59C857.76 603.489 851.761 589.006 841.083 578.327C830.404 567.649 815.921 561.65 800.82 561.65H526.39L810.34 0H683L342.15 675.53H802.59C817.384 675.075 831.419 668.875 841.719 658.245C852.018 647.615 857.772 633.391 857.76 618.59Z"/>
+          <path d="M290.64 561.08H121C122.74 551.31 125 540.65 127.87 529.37C144.41 464.84 173.51 411.32 214.35 370.29C265.09 319.29 334.15 288.61 420.18 278.6L480 160C403.79 160.54 334.73 172.84 274.66 196.61C219.75 218.34 171.66 249.83 131.76 290.23C-0.76004 424.39 -2.43357e-05 611.38 -2.43357e-05 619.28L0.679976 676.09H232.61L290.64 561.08Z"/>
+          <path d="M292.65 493.53C319.988 493.53 342.15 471.368 342.15 444.03C342.15 416.692 319.988 394.53 292.65 394.53C265.312 394.53 243.15 416.692 243.15 444.03C243.15 471.368 265.312 493.53 292.65 493.53Z"/>
+        </svg>
+      </span>
+      <span>lpirro.com</span>
+    </footer>
+  </div>
+
+  <script src="/assets/picks.js"></script>
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    (function () {
+      var input = document.getElementById("q");
+      var list = document.getElementById("picks-list");
+      var count = document.getElementById("count");
+      var empty = document.getElementById("empty");
+
+      // lowercase, no accents, so "caffe" finds "Caffè"
+      function fold(text) {
+        return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      }
+
+      if (!PICKS.length) {
+        input.closest(".search").hidden = true;
+        empty.textContent = "Ancora nessun prodotto. Torna presto!";
+        empty.hidden = false;
+        return;
+      }
+
+      var rows = PICKS.map(function (pick) {
+        var item = renderPick(pick);
+        list.appendChild(item);
+        return {
+          item: item,
+          text: fold([pick.product, pick.brand, PLATFORMS[pick.platform].label, pick.keywords || ""].join(" "))
+        };
+      });
+
+      var searchTimer;
+      function filter() {
+        var words = fold(input.value).split(/\s+/).filter(Boolean);
+        var shown = 0;
+        rows.forEach(function (row) {
+          var match = words.every(function (word) { return row.text.indexOf(word) !== -1; });
+          row.item.hidden = !match;
+          if (match) shown++;
+        });
+        count.textContent = shown + (shown === 1 ? " prodotto" : " prodotti");
+        empty.hidden = shown > 0;
+        empty.textContent = "Nessun risultato per \u201c" + input.value.trim() + "\u201d. Prova con il nome del brand.";
+
+        clearTimeout(searchTimer);
+        if (words.length) searchTimer = setTimeout(function () {
+          if (typeof gtag === "function") gtag("event", "search", { search_term: input.value.trim(), results: shown });
+        }, 1200);
+      }
+
+      input.addEventListener("input", filter);
+      filter();
+      focusPick(decodeURIComponent(location.hash.slice(1)));
+    })();
+  </script>
+</body>
+</html>
