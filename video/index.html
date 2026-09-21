@@ -108,7 +108,7 @@
         list.appendChild(item);
         return {
           item: item,
-          text: fold([pick.product, pick.brand, PLATFORMS[pick.platform].label, pick.keywords || ""].join(" "))
+          text: fold([pick.product, pick.brand, (PLATFORMS[pick.platform] || {}).label || "", pick.keywords || ""].join(" "))
         };
       });
 
