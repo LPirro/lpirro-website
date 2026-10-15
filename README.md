@@ -1,6 +1,6 @@
 # lpirro.com
 
-Personal profile landing page for Leonardo Pirro — links to TikTok, Instagram, Telegram, and email.
+Personal profile landing page for Leonardo Pirro — links to YouTube, TikTok, Instagram, Telegram, and email.
 
 ## Stack
 
@@ -23,6 +23,6 @@ If the site ever moves off `lpirro.com`, update the `canonical`, `og:url`, and `
 
 ## Editing
 
-- **Links/handles** — edit the four `.card` anchors in `index.html`.
+- **Links/handles** — edit the five `.card` anchors in `index.html`.
 - **Profile photo** — replace `assets/profile.avif` and `assets/profile.jpg` (512×512). The avatar is zoom-cropped toward the face via CSS (`.avatar img` → `transform` / `transform-origin`); tweak or remove if a new photo is framed differently.
 - **Accent colors** — each card sets its platform color via the inline `--acc` custom property.
