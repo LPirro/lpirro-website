@@ -2,6 +2,12 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "dev",
+      "runtimeExecutable": "vercel",
+      "runtimeArgs": ["dev", "--listen", "4174", "--yes"],
+      "port": 4174
+    },
+    {
       "name": "site",
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "4173"],

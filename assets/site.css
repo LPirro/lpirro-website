@@ -117,64 +117,117 @@ main { flex: 1; }
   position: relative;
   width: clamp(104px, 12vw, 136px);
   margin-bottom: 1.75rem;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
-/* multicolor aura that pulses behind the portrait, like speech */
-.avatar::before {
-  content: "";
+/* AI-voice aura: an aurora disc spins behind the portrait while four blurred
+   blobs orbit and morph; the whole thing pulses with the irregular cadence of speech */
+.aura {
   position: absolute;
-  inset: -42%;
+  inset: -48%;
   z-index: -1;
   border-radius: 50%;
-  background:
-    radial-gradient(closest-side at 30% 35%, rgba(139, 92, 246, 0.60), transparent 70%),
-    radial-gradient(closest-side at 72% 62%, rgba(59, 130, 246, 0.46), transparent 70%),
-    radial-gradient(closest-side at 58% 22%, rgba(245, 158, 11, 0.36), transparent 72%),
-    radial-gradient(closest-side at 38% 75%, rgba(236, 72, 153, 0.32), transparent 72%);
-  filter: blur(16px);
-  animation: talk 7.5s ease-in-out infinite;
+  animation: talk 5.8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.aura::before {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg,
+    #8b5cf6, #3b82f6, #22d3ee, #f59e0b, #ec4899, #8b5cf6);
+  filter: blur(18px);
+  opacity: 0.42;
+  animation: spin-aura 11s linear infinite;
+  will-change: transform;
+}
+
+/* soft wave radiating outward, like sound */
+.aura::after {
+  content: "";
+  position: absolute;
+  inset: 6%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side,
+    transparent 56%,
+    rgba(139, 92, 246, 0.34) 72%,
+    rgba(34, 211, 238, 0.22) 84%,
+    transparent 97%);
+  filter: blur(8px);
+  opacity: 0;
+  animation: ripple 4.2s ease-out infinite;
   will-change: transform, opacity;
+}
+
+.blob {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  filter: blur(14px);
+  will-change: transform, border-radius;
+}
+
+.blob-1 { left: 4%;   top: 6%;     background: #8b5cf6; opacity: 0.8;  animation: drift-1 7.5s ease-in-out infinite; }
+.blob-2 { right: 2%;  top: 12%;    background: #3b82f6; opacity: 0.7;  animation: drift-2 9.5s ease-in-out infinite; }
+.blob-3 { left: 24%;  bottom: 0;   background: #ec4899; opacity: 0.5;  animation: drift-3 8.6s ease-in-out infinite; }
+.blob-4 { right: 10%; bottom: 8%;  background: #f59e0b; opacity: 0.55; animation: drift-4 11s ease-in-out infinite; }
+
+@keyframes drift-1 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1);          border-radius: 58% 42% 46% 54% / 52% 38% 62% 48%; }
+  33%      { transform: translate(36%, 22%) rotate(30deg) scale(1.16);  border-radius: 42% 58% 60% 40% / 46% 54% 46% 54%; }
+  66%      { transform: translate(-8%, 42%) rotate(-16deg) scale(0.88);  border-radius: 50% 50% 38% 62% / 60% 44% 56% 40%; }
+}
+
+@keyframes drift-2 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1);           border-radius: 46% 54% 58% 42% / 56% 46% 54% 44%; }
+  30%      { transform: translate(-40%, 24%) rotate(-25deg) scale(1.13); border-radius: 60% 40% 44% 56% / 42% 60% 40% 58%; }
+  65%      { transform: translate(-13%, -18%) rotate(20deg) scale(0.88); border-radius: 40% 60% 54% 46% / 58% 38% 62% 42%; }
+}
+
+@keyframes drift-3 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1);           border-radius: 52% 48% 40% 60% / 44% 58% 42% 56%; }
+  40%      { transform: translate(28%, -40%) rotate(32deg) scale(1.18);  border-radius: 44% 56% 62% 38% / 58% 42% 58% 42%; }
+  70%      { transform: translate(-24%, -13%) rotate(-12deg) scale(0.92); border-radius: 60% 40% 48% 52% / 40% 62% 38% 60%; }
+}
+
+@keyframes drift-4 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1);           border-radius: 56% 44% 52% 48% / 46% 56% 44% 54%; }
+  35%      { transform: translate(-33%, -34%) rotate(-28deg) scale(1.14); border-radius: 42% 58% 40% 60% / 60% 40% 60% 40%; }
+  70%      { transform: translate(15%, -8%) rotate(16deg) scale(0.9);     border-radius: 62% 38% 56% 44% / 38% 60% 42% 58%; }
+}
+
+@keyframes spin-aura {
+  to { transform: rotate(360deg); }
 }
 
 /* irregular cadence — syllables, emphasis, a pause — not a metronome */
 @keyframes talk {
-  0%   { transform: scale(1);    opacity: 0.74; }
-  11%  { transform: scale(1.08); opacity: 0.9; }
-  21%  { transform: scale(1);    opacity: 0.77; }
-  33%  { transform: scale(1.13); opacity: 0.97; }
-  44%  { transform: scale(1.04); opacity: 0.82; }
-  57%  { transform: scale(1.17); opacity: 1; }
-  71%  { transform: scale(1.01); opacity: 0.76; }
-  83%  { transform: scale(1.08); opacity: 0.9; }
-  100% { transform: scale(1);    opacity: 0.74; }
-}
-
-/* soft wave radiating outward, like sound */
-.avatar::after {
-  content: "";
-  position: absolute;
-  inset: -34%;
-  z-index: -1;
-  border-radius: 50%;
-  background: radial-gradient(closest-side,
-    transparent 55%,
-    rgba(139, 92, 246, 0.32) 72%,
-    rgba(59, 130, 246, 0.20) 83%,
-    transparent 97%);
-  filter: blur(10px);
-  opacity: 0;
-  animation: ripple 5.6s ease-out infinite;
-  will-change: transform, opacity;
+  0%   { transform: scale(1);    }
+  9%   { transform: scale(1.07); }
+  18%  { transform: scale(1.02); }
+  29%  { transform: scale(1.12); }
+  38%  { transform: scale(1.04); }
+  50%  { transform: scale(1.16); }
+  61%  { transform: scale(1.02); }
+  70%  { transform: scale(1.09); }
+  80%  { transform: scale(1.0);  }
+  88%  { transform: scale(1.06); }
+  100% { transform: scale(1);    }
 }
 
 @keyframes ripple {
-  0%   { transform: scale(0.92); opacity: 0; }
-  10%  { opacity: 0.58; }
-  42%  { transform: scale(1.2); opacity: 0; }
-  48%  { transform: scale(0.94); opacity: 0; }
-  57%  { opacity: 0.45; }
-  88%  { transform: scale(1.24); opacity: 0; }
-  100% { transform: scale(0.92); opacity: 0; }
+  0%   { transform: scale(0.9); opacity: 0; }
+  12%  { opacity: 0.6; }
+  48%  { transform: scale(1.22); opacity: 0; }
+  52%  { transform: scale(0.92); opacity: 0; }
+  62%  { opacity: 0.45; }
+  92%  { transform: scale(1.26); opacity: 0; }
+  100% { transform: scale(0.9); opacity: 0; }
 }
 
 @property --ang {
@@ -191,7 +244,7 @@ main { flex: 1; }
   box-shadow:
     0 0 70px -12px rgba(139, 92, 246, 0.45),
     0 0 120px -18px rgba(245, 158, 11, 0.28);
-  animation: spin 9s linear infinite;
+  animation: spin 7s linear infinite;
 }
 
 @keyframes spin { to { --ang: 360deg; } }
@@ -213,6 +266,8 @@ main { flex: 1; }
   height: auto;
   transform: scale(1.14);
   transform-origin: 46% 36%;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
 }
 
 .eyebrow {
@@ -250,10 +305,48 @@ h1 {
   color: var(--dim);
   line-height: 1.65;
   max-width: 34ch;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
 }
 
 .bio-lead { display: block; color: var(--ink); margin-bottom: 0.35rem; }
+
+/* ---------- socials: one row of icon links under the bio ---------- */
+
+.socials {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 3rem;
+}
+
+.social {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 0.8rem;
+  border: 1px solid var(--hairline);
+  background: var(--card);
+  color: #cfcdc8;
+  transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease;
+}
+
+.social svg { width: 19px; height: 19px; }
+
+.social:hover,
+.social:focus-visible {
+  color: var(--acc);
+  border-color: color-mix(in srgb, var(--acc) 50%, transparent);
+  background: color-mix(in srgb, var(--acc) 10%, transparent);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -12px color-mix(in srgb, var(--acc) 45%, transparent);
+}
+
+.social:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--acc) 70%, transparent);
+  outline-offset: 2px;
+}
 
 /* ---------- links ---------- */
 
@@ -277,13 +370,6 @@ h1 {
   background: var(--hairline);
 }
 
-.links ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-}
-
 .card {
   display: flex;
   align-items: center;
@@ -296,21 +382,6 @@ h1 {
   color: var(--ink);
   transition: border-color 0.25s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease, background-color 0.25s ease;
 }
-
-.tile {
-  flex: none;
-  width: 42px;
-  height: 42px;
-  border-radius: 0.75rem;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--hairline);
-  background: rgba(255, 255, 255, 0.03);
-  color: #cfcdc8;
-  transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
-}
-
-.tile svg { width: 19px; height: 19px; }
 
 .meta { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
 
@@ -344,13 +415,6 @@ h1 {
   background: color-mix(in srgb, var(--acc) 4%, var(--card));
   transform: translateY(-2px);
   box-shadow: 0 14px 38px -14px color-mix(in srgb, var(--acc) 38%, transparent);
-}
-
-.card:hover .tile,
-.card:focus-visible .tile {
-  color: var(--acc);
-  border-color: color-mix(in srgb, var(--acc) 45%, transparent);
-  background: color-mix(in srgb, var(--acc) 10%, transparent);
 }
 
 .card:hover .arrow,
@@ -484,6 +548,171 @@ h1 {
   color: var(--faint);
 }
 
+/* ---------- latest videos: horizontal reel ---------- */
+
+.videos { margin-bottom: 2.4rem; }
+.videos[hidden] { display: none; }
+
+.reel-head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.1rem;
+}
+
+.reel-head .channels-label { flex: 1; margin-bottom: 0; }
+
+.reel-nav { display: none; gap: 0.35rem; }
+
+@media (hover: hover) { .reel-nav { display: flex; } }
+
+.reel-btn {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--hairline);
+  border-radius: 50%;
+  background: var(--card);
+  color: var(--dim);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.reel-btn svg { width: 12px; height: 12px; }
+.reel-btn:hover:not(:disabled) { color: var(--ink); border-color: var(--dim); }
+.reel-btn:disabled { opacity: 0.3; cursor: default; }
+
+/* bleeds to the screen edge so cards slide under it */
+.reel {
+  list-style: none;
+  display: flex;
+  gap: 0.8rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  margin: 0 -1.5rem;
+  padding: 0.25rem 1.5rem 0.75rem;
+  scroll-padding-inline: 1.5rem;
+}
+
+.reel::-webkit-scrollbar { display: none; }
+
+.reel li {
+  flex: none;
+  width: min(68vw, 250px);
+  scroll-snap-align: start;
+}
+
+.clip {
+  --acc: #ff0033;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.85rem;
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  background: var(--card);
+  transition: border-color 0.25s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.play {
+  position: absolute;
+  left: 0.6rem;
+  bottom: 0.6rem;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(10, 10, 14, 0.72);
+  backdrop-filter: blur(6px);
+  color: var(--ink);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.play svg { width: 13px; height: 13px; margin-left: 1px; }
+
+.short {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 99px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(10, 10, 14, 0.72);
+  backdrop-filter: blur(6px);
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.clip-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.clip:hover .thumb,
+.clip:focus-visible .thumb {
+  border-color: color-mix(in srgb, var(--acc) 50%, transparent);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px -12px color-mix(in srgb, var(--acc) 45%, transparent);
+}
+
+.clip:hover .thumb img { transform: scale(1.04); }
+.clip:hover .play { background: var(--acc); border-color: var(--acc); }
+.clip:focus-visible { outline: none; }
+
+.clip:focus-visible .thumb {
+  outline: 2px solid color-mix(in srgb, var(--acc) 70%, transparent);
+  outline-offset: 2px;
+}
+
+.clip-all {
+  aspect-ratio: 16 / 9;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+  border-radius: 0.85rem;
+  color: var(--dim);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.clip-all svg { width: 22px; height: 22px; }
+.clip-all:hover, .clip-all:focus-visible { color: var(--ink); border-color: var(--dim); }
+
 /* ---------- all videos page ---------- */
 
 .library main { display: block; min-height: 0; }
@@ -593,8 +822,8 @@ footer {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .a, .avatar-ring, .glow, .avatar::before, .avatar::after { animation: none; }
-  .card, .arrow, .tile, .picks-more, .search { transition: none; }
+  .a, .avatar-ring, .glow, .aura, .aura::before, .aura::after, .blob { animation: none; }
+  .card, .arrow, .social, .thumb, .thumb img, .play, .reel-btn, .picks-more, .search { transition: none; }
 }
 
 /* ---------- desktop: split studio layout ---------- */
@@ -615,9 +844,14 @@ footer {
 
   .identity { padding-bottom: 1rem; }
 
-  .bio { margin-bottom: 0; }
+  .socials { margin-bottom: 0; }
 
-  .side { align-self: center; }
+  .side { align-self: center; min-width: 0; }
+
+  /* no bleed in the column: exactly two cards fit, so nothing is ever cut off */
+  .reel { margin: 0; padding: 0.25rem 0 0.75rem; scroll-padding-inline: 0; }
+
+  .reel li { width: calc((100% - 0.8rem) / 2); }
 
   .card { padding: 1rem 1.15rem; }
 
